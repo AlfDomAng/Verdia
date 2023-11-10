@@ -1,2 +1,1 @@
-# verdia-screen-analisys
-SMDPC
+# verdia
