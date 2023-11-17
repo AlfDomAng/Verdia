@@ -90,6 +90,35 @@
                 timer: 4000,
             });
         } else {
+
+            //Esta es la parte de la API
+            var file = fileInput.files[0];
+            if (file) {
+                var formData = new FormData();
+                formData.append('imagen', file);
+
+                fetch('http://127.0.0.1:5000/api/subir-imagen', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Respuesta de la API:', data);
+                        console.log('index: ', data.index);
+                    })
+                    .catch(error => {
+                        //SW DE ERROR
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Sube una imagen menor a 10 MB :)",
+                        });
+                        console.error('Error al enviar la imagen:', error);
+                    });
+            } else {
+                console.error('Selecciona una imagen antes de hacer clic en "Enviar Imagen".');
+            }
+
             // Coloca aquí la lógica para analizar la imagen
             console.log('if not null');
             let timerInterval;
@@ -113,27 +142,6 @@
                     $('#imageModal').modal('show');
                 }
             });
-            //Esta es la parte de la API
-            var file = fileInput.files[0];
-
-            if (file) {
-                var formData = new FormData();
-                formData.append('imagen', file);
-
-                fetch('http://127.0.0.1:5000/api/subir-imagen', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Respuesta de la API:', data);
-                    })
-                    .catch(error => {
-                        console.error('Error al enviar la imagen:', error);
-                    });
-            } else {
-                console.error('Selecciona una imagen antes de hacer clic en "Enviar Imagen".');
-            }
         }
     });
 
