@@ -97,14 +97,16 @@
                 var formData = new FormData();
                 formData.append('imagen', file);
 
-                fetch('http://127.0.0.1:5000/api/subir-imagen', {
+                fetch('https://wn00pl59-5000.usw3.devtunnels.ms/api/subir-imagen', {
                     method: 'POST',
                     body: formData
                 })
                     .then(response => response.json())
                     .then(data => {
                         console.log('Respuesta de la API:', data);
-                        console.log('index: ', data.index);
+                        console.log('index: ', data.title);
+                        document.getElementById("titulo").innerHTML = data.title;
+                        document.getElementById("estado").innerHTML = data.descripcion;
                     })
                     .catch(error => {
                         //SW DE ERROR
